@@ -9,6 +9,7 @@ import { MapPin, Star, Search, Mountain, Phone, Mail } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import { BookingModal } from "@/components/booking-modal"
 
 const hotels = [
   {
@@ -17,16 +18,14 @@ const hotels = [
     location: "Hunza Valley",
     category: "Luxury",
     rating: 4.8,
-    reviews: 234,
-    price: "$120-180",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 234,
+    price_range: "$120-180",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Luxury resort with stunning mountain views and traditional architecture.",
     amenities: ["Free WiFi", "Restaurant", "Spa", "Mountain Views", "Room Service"],
-    contact: {
-      phone: "+92 5813 457001",
-      email: "hunza@serena.com.pk",
-    },
     features: ["24/7 Reception", "Airport Shuttle", "Laundry Service"],
+    phone: "+92 5813 457001",
+    email: "hunza@serena.com.pk",
   },
   {
     id: 2,
@@ -34,16 +33,14 @@ const hotels = [
     location: "Lahore",
     category: "Luxury",
     rating: 4.6,
-    reviews: 456,
-    price: "$90-140",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 456,
+    price_range: "$90-140",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Premier hotel in the heart of Lahore with modern amenities and excellent service.",
     amenities: ["Free WiFi", "Pool", "Gym", "Multiple Restaurants", "Business Center"],
-    contact: {
-      phone: "+92 42 111 505 505",
-      email: "pc.lahore@pchotels.com",
-    },
     features: ["Valet Parking", "Concierge", "Conference Rooms"],
+    phone: "+92 42 111 505 505",
+    email: "pc.lahore@pchotels.com",
   },
   {
     id: 3,
@@ -51,16 +48,14 @@ const hotels = [
     location: "Skardu",
     category: "Resort",
     rating: 4.7,
-    reviews: 189,
-    price: "$80-120",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 189,
+    price_range: "$80-120",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Beautiful lakeside resort known as 'Heaven on Earth' with breathtaking scenery.",
     amenities: ["Lake Views", "Restaurant", "Boating", "Garden", "Room Service"],
-    contact: {
-      phone: "+92 5815 460523",
-      email: "info@shangrilaresorts.com",
-    },
     features: ["Lake Activities", "Mountain Trekking", "Cultural Tours"],
+    phone: "+92 5815 460523",
+    email: "info@shangrilaresorts.com",
   },
   {
     id: 4,
@@ -68,16 +63,14 @@ const hotels = [
     location: "Karachi",
     category: "Business",
     rating: 4.5,
-    reviews: 312,
-    price: "$100-150",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 312,
+    price_range: "$100-150",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Modern business hotel with excellent facilities and prime location.",
     amenities: ["Free WiFi", "Pool", "Gym", "Spa", "Multiple Restaurants"],
-    contact: {
-      phone: "+92 21 111 117 117",
-      email: "hotel.karachi@movenpick.com",
-    },
     features: ["Business Center", "Meeting Rooms", "Airport Transfer"],
+    phone: "+92 21 111 117 117",
+    email: "hotel.karachi@movenpick.com",
   },
   {
     id: 5,
@@ -85,16 +78,14 @@ const hotels = [
     location: "Swat Valley",
     category: "Heritage",
     rating: 4.4,
-    reviews: 167,
-    price: "$70-110",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 167,
+    price_range: "$70-110",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Charming heritage hotel surrounded by lush green valleys and mountains.",
     amenities: ["Garden Views", "Restaurant", "Cultural Shows", "Hiking Trails"],
-    contact: {
-      phone: "+92 946 710257",
-      email: "swat@serena.com.pk",
-    },
     features: ["Nature Walks", "Local Cuisine", "Cultural Programs"],
+    phone: "+92 946 710257",
+    email: "swat@serena.com.pk",
   },
   {
     id: 6,
@@ -102,16 +93,14 @@ const hotels = [
     location: "Islamabad",
     category: "Luxury",
     rating: 4.7,
-    reviews: 298,
-    price: "$110-160",
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 298,
+    price_range: "$110-160",
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Elegant hotel in the capital with world-class amenities and service.",
     amenities: ["Free WiFi", "Pool", "Spa", "Multiple Restaurants", "Tennis Court"],
-    contact: {
-      phone: "+92 51 287 4000",
-      email: "islamabad@serena.com.pk",
-    },
     features: ["Business Facilities", "Event Spaces", "Diplomatic Quarter"],
+    phone: "+92 51 287 4000",
+    email: "islamabad@serena.com.pk",
   },
 ]
 
@@ -227,7 +216,7 @@ export default function HotelsPage() {
             <Card key={hotel.id} className="overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
                 <div className="md:w-1/3 relative h-48 md:h-auto">
-                  <Image src={hotel.image || "/placeholder.svg"} alt={hotel.name} fill className="object-cover" />
+                  <Image src={hotel.image_url || "/placeholder.svg"} alt={hotel.name} fill className="object-cover" />
                   <div className="absolute top-4 left-4">
                     <Badge variant="secondary" className="bg-white/90">
                       {hotel.category}
@@ -248,9 +237,9 @@ export default function HotelsPage() {
                       <div className="flex items-center mb-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
                         <span className="font-semibold">{hotel.rating}</span>
-                        <span className="text-gray-500 text-sm ml-1">({hotel.reviews})</span>
+                        <span className="text-gray-500 text-sm ml-1">({hotel.reviews_count})</span>
                       </div>
-                      <p className="font-bold text-green-600">{hotel.price}/night</p>
+                      <p className="font-bold text-green-600">{hotel.price_range}/night</p>
                     </div>
                   </div>
 
@@ -275,16 +264,21 @@ export default function HotelsPage() {
                   <div className="mb-4 text-sm text-gray-600">
                     <div className="flex items-center mb-1">
                       <Phone className="h-4 w-4 mr-2" />
-                      <span>{hotel.contact.phone}</span>
+                      <span>{hotel.phone}</span>
                     </div>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 mr-2" />
-                      <span>{hotel.contact.email}</span>
+                      <span>{hotel.email}</span>
                     </div>
                   </div>
 
                   <div className="flex gap-2">
-                    <Button className="flex-1 bg-green-600 hover:bg-green-700">Book Now</Button>
+                    <BookingModal
+                      type="hotel"
+                      entityId={hotel.id}
+                      entityName={hotel.name}
+                      trigger={<Button className="flex-1 bg-green-600 hover:bg-green-700">Book Now</Button>}
+                    />
                     <Button variant="outline">View Details</Button>
                   </div>
                 </div>

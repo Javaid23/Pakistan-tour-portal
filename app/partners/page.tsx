@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MapPin, Star, Search, Users, MessageCircle, Award, Languages, Mountain } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { BookingModal } from "@/components/booking-modal"
 
 const travelPartners = [
   {
@@ -17,13 +18,13 @@ const travelPartners = [
     title: "Mountain Guide & Trekking Expert",
     location: "Hunza Valley",
     rating: 4.9,
-    reviews: 127,
+    reviews_count: 127,
     experience: "8 years",
     languages: ["English", "Urdu", "Burushaski"],
     specialties: ["Mountain Trekking", "Cultural Tours", "Photography"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description: "Experienced mountain guide specializing in Karakoram range expeditions and cultural immersion tours.",
-    priceRange: "$50-80/day",
+    price_range: "$50-80/day",
     verified: true,
   },
   {
@@ -32,14 +33,14 @@ const travelPartners = [
     title: "Cultural Heritage Specialist",
     location: "Lahore",
     rating: 4.8,
-    reviews: 89,
+    reviews_count: 89,
     experience: "6 years",
     languages: ["English", "Urdu", "Punjabi"],
     specialties: ["Historical Tours", "Food Tours", "Art & Culture"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description:
       "Passionate about sharing Pakistan's rich cultural heritage through immersive historical and culinary experiences.",
-    priceRange: "$40-60/day",
+    price_range: "$40-60/day",
     verified: true,
   },
   {
@@ -48,13 +49,13 @@ const travelPartners = [
     title: "Adventure Sports Guide",
     location: "Skardu",
     rating: 4.9,
-    reviews: 156,
+    reviews_count: 156,
     experience: "10 years",
     languages: ["English", "Urdu", "Balti"],
     specialties: ["Rock Climbing", "Mountaineering", "Base Camp Treks"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description: "Professional mountaineer with extensive experience in K2 and other 8000m peak expeditions.",
-    priceRange: "$70-100/day",
+    price_range: "$70-100/day",
     verified: true,
   },
   {
@@ -63,13 +64,13 @@ const travelPartners = [
     title: "Wildlife & Nature Guide",
     location: "Swat Valley",
     rating: 4.7,
-    reviews: 73,
+    reviews_count: 73,
     experience: "5 years",
     languages: ["English", "Urdu", "Pashto"],
     specialties: ["Wildlife Photography", "Nature Walks", "Eco-Tourism"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description: "Nature enthusiast specializing in wildlife conservation and sustainable tourism practices.",
-    priceRange: "$45-65/day",
+    price_range: "$45-65/day",
     verified: true,
   },
   {
@@ -78,13 +79,13 @@ const travelPartners = [
     title: "Urban Explorer & Food Guide",
     location: "Karachi",
     rating: 4.6,
-    reviews: 94,
+    reviews_count: 94,
     experience: "4 years",
     languages: ["English", "Urdu", "Sindhi"],
     specialties: ["Street Food", "Urban Tours", "Local Markets"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description: "Local Karachi expert who knows the best hidden gems, street food spots, and cultural experiences.",
-    priceRange: "$35-55/day",
+    price_range: "$35-55/day",
     verified: false,
   },
   {
@@ -93,13 +94,13 @@ const travelPartners = [
     title: "Luxury Travel Consultant",
     location: "Islamabad",
     rating: 4.8,
-    reviews: 112,
+    reviews_count: 112,
     experience: "7 years",
     languages: ["English", "Urdu", "French"],
     specialties: ["Luxury Tours", "Business Travel", "VIP Services"],
-    avatar: "/placeholder.svg?height=100&width=100",
+    avatar_url: "/placeholder.svg?height=100&width=100",
     description: "Specializes in high-end travel experiences with personalized service and exclusive access.",
-    priceRange: "$80-120/day",
+    price_range: "$80-120/day",
     verified: true,
   },
 ]
@@ -218,7 +219,7 @@ export default function PartnersPage() {
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                   <Avatar className="h-16 w-16">
-                    <AvatarImage src={partner.avatar || "/placeholder.svg"} alt={partner.name} />
+                    <AvatarImage src={partner.avatar_url || "/placeholder.svg"} alt={partner.name} />
                     <AvatarFallback>
                       {partner.name
                         .split(" ")
@@ -244,7 +245,7 @@ export default function PartnersPage() {
                         <div className="flex items-center mb-1">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
                           <span className="font-semibold">{partner.rating}</span>
-                          <span className="text-gray-500 text-sm ml-1">({partner.reviews})</span>
+                          <span className="text-gray-500 text-sm ml-1">({partner.reviews_count})</span>
                         </div>
                         <p className="text-sm text-gray-600">{partner.experience} experience</p>
                       </div>
@@ -271,15 +272,22 @@ export default function PartnersPage() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold text-green-600">{partner.priceRange}</p>
+                        <p className="font-semibold text-green-600">{partner.price_range}</p>
                       </div>
                     </div>
 
                     <div className="flex gap-2">
-                      <Button className="flex-1 bg-green-600 hover:bg-green-700">
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        Contact Guide
-                      </Button>
+                      <BookingModal
+                        type="guide"
+                        entityId={partner.id}
+                        entityName={partner.name}
+                        trigger={
+                          <Button className="flex-1 bg-green-600 hover:bg-green-700">
+                            <MessageCircle className="h-4 w-4 mr-2" />
+                            Book Guide
+                          </Button>
+                        }
+                      />
                       <Button variant="outline">View Profile</Button>
                     </div>
                   </div>

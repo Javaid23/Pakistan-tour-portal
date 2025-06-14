@@ -17,11 +17,11 @@ const destinations = [
     location: "Gilgit-Baltistan",
     category: "Mountain",
     rating: 4.9,
-    reviews: 234,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 234,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "A breathtaking valley surrounded by towering peaks, ancient forts, and apricot orchards.",
     highlights: ["Baltit Fort", "Attabad Lake", "Rakaposhi View", "Local Culture"],
-    bestTime: "April - October",
+    best_time: "April - October",
     difficulty: "Moderate",
   },
   {
@@ -30,11 +30,11 @@ const destinations = [
     location: "Punjab",
     category: "Cultural",
     rating: 4.7,
-    reviews: 456,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 456,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "The cultural heart of Pakistan with magnificent Mughal architecture and vibrant street life.",
     highlights: ["Badshahi Mosque", "Lahore Fort", "Food Street", "Shalimar Gardens"],
-    bestTime: "October - March",
+    best_time: "October - March",
     difficulty: "Easy",
   },
   {
@@ -43,11 +43,11 @@ const destinations = [
     location: "Gilgit-Baltistan",
     category: "Adventure",
     rating: 4.8,
-    reviews: 189,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 189,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Gateway to K2 and base camp for some of the world's highest peaks.",
     highlights: ["K2 Base Camp", "Shangrila Resort", "Deosai Plains", "Satpara Lake"],
-    bestTime: "May - September",
+    best_time: "May - September",
     difficulty: "Challenging",
   },
   {
@@ -56,11 +56,11 @@ const destinations = [
     location: "Sindh",
     category: "Urban",
     rating: 4.5,
-    reviews: 312,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 312,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Pakistan's largest city and economic hub with beautiful beaches and modern attractions.",
     highlights: ["Clifton Beach", "Quaid's Mausoleum", "Port Grand", "Empress Market"],
-    bestTime: "November - February",
+    best_time: "November - February",
     difficulty: "Easy",
   },
   {
@@ -69,11 +69,11 @@ const destinations = [
     location: "Khyber Pakhtunkhwa",
     category: "Nature",
     rating: 4.6,
-    reviews: 167,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 167,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "Known as the 'Switzerland of Pakistan' for its lush green valleys and crystal-clear rivers.",
     highlights: ["Kalam Valley", "Mahodand Lake", "Ushu Forest", "White Palace"],
-    bestTime: "April - October",
+    best_time: "April - October",
     difficulty: "Moderate",
   },
   {
@@ -82,11 +82,11 @@ const destinations = [
     location: "Capital Territory",
     category: "Urban",
     rating: 4.4,
-    reviews: 298,
-    image: "/placeholder.svg?height=300&width=400",
+    reviews_count: 298,
+    image_url: "/placeholder.svg?height=300&width=400",
     description: "The modern capital city nestled against the Margalla Hills with planned architecture.",
     highlights: ["Faisal Mosque", "Margalla Hills", "Pakistan Monument", "Lok Virsa"],
-    bestTime: "March - May, September - November",
+    best_time: "March - May, September - November",
     difficulty: "Easy",
   },
 ]
@@ -199,7 +199,7 @@ export default function DestinationsPage() {
             <Card key={destination.id} className="overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-48">
                 <Image
-                  src={destination.image || "/placeholder.svg"}
+                  src={destination.image_url || "/placeholder.svg"}
                   alt={destination.name}
                   fill
                   className="object-cover"
@@ -236,7 +236,7 @@ export default function DestinationsPage() {
                   <div className="flex items-center">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
                     <span className="font-semibold">{destination.rating}</span>
-                    <span className="text-gray-500 text-sm ml-1">({destination.reviews})</span>
+                    <span className="text-gray-500 text-sm ml-1">({destination.reviews_count})</span>
                   </div>
                 </div>
 
@@ -261,7 +261,7 @@ export default function DestinationsPage() {
                 <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
                   <div className="flex items-center">
                     <Thermometer className="h-4 w-4 mr-1" />
-                    <span>Best: {destination.bestTime}</span>
+                    <span>Best: {destination.best_time}</span>
                   </div>
                 </div>
 
